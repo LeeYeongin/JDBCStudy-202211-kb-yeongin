@@ -22,7 +22,7 @@ public class JdbcSelect2 {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, writerId);// 1은 첫번째 물음표를 의미
 			//pstmt.setString(1, writerId);
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery(); // select만 executeQuery사용
 			
 			System.out.println("id\t\ttitle\t\tcontent\t\tread_count\t\twriter_id");
 			while(rs.next()) {
