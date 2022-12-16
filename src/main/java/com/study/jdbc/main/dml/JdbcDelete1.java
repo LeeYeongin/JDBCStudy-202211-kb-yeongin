@@ -21,7 +21,7 @@ public class JdbcDelete1 {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			int successCount = pstmt.executeUpdate();
-			System.out.println(successCount + "건 수정완료!");
+			System.out.println(successCount + "건 삭제완료!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
