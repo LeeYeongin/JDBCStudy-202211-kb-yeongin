@@ -25,8 +25,6 @@ public class JdbcDelete1 {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
-
 }
