@@ -37,10 +37,10 @@ public class UserDao {
 			pstmt.setString(1, user.getUsername()); // user객체안의 name
 			successCount = pstmt.executeUpdate();
 			
-			rs = pstmt.getGeneratedKeys();
-			if(rs.next()) {
-				user.setUser_id(rs.getInt(1)); // 생성된 key값을 sql로부터 받아와 user객체의 user_id에 저장
-			}
+//			rs = pstmt.getGeneratedKeys();
+//			if(rs.next()) {
+//				user.setUser_id(rs.getInt(1)); // 생성된 key값을 sql로부터 받아와 user객체의 user_id에 저장
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -60,7 +60,7 @@ public class UserDao {
 		
 		try {
 			con = pool.getConnection();
-			sql = "select id, username, name, email, phone  from user_mst um left outer join user_dtl ud on(ud.id = um.id)";
+			sql = "select id, username, name, email, phone  from user_mst um left outer join user_dtl ud on(ud.id = um.id) where um.username = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, username);
 			rs = pstmt.executeQuery();
@@ -81,6 +81,28 @@ public class UserDao {
 		}
 		
 		return user;
+	}
+	
+	public void getUserList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		
+		try {
+			con = pool.getConnection();
+			sql = "select * from user_mst um left outer join user_dtl ud on(ud.id = um.id) where um.username = ?";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				System.out.println(rs.getInt(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
 	}
 	
 }
